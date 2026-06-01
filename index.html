@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EcoDevice Analyzer - Smart Device Decision</title>
+
+<style>
+
+:root{
+    --bg:#07130a;
+    --panel:rgba(255,255,255,0.08);
+    --text:#ffffff;
+    --accent:#22ff66;
+    --accent2:#8cff66;
+    --muted:#9effb3;
+}
+
+/* BODY */
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    color:var(--text);
+
+    background:
+    linear-gradient(rgba(0,0,0,0.7),
+    rgba(0,0,0,0.8)),
+    url("https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?q=80&w=2070");
+
+    background-size:cover;
+    background-position:center;
+    background-attachment:scroll;
+
+    overflow-x:hidden;
+}
+
+/* PARTICLES */
+
+.particles::before{
+    content:"";
+    position:fixed;
+    width:100%;
+    height:100%;
+
+    background-image:
+    radial-gradient(#22ff66 1px, transparent 1px);
+
+    background-size:40px 40px;
+
+    opacity:0.08;
+
+    animation:moveParticles 30s linear infinite;
+
+    pointer-events:none;
+}
+
+@keyframes moveParticles{
+    from{
+        transform:translateY(0);
+    }
+
+    to{
+        transform:translateY(-200px);
+    }
+}
+
+/* GLOW */
+
+.glow{
+    position:absolute;
+    width:500px;
+    height:500px;
+
+    border-radius:50%;
+
+    filter:blur(140px);
+
+    opacity:0.18;
+
+    animation:floatGlow 8s ease-in-out infinite;
+}
+
+.glow:nth-child(1){
+    background:#22ff66;
+    top:-100px;
+    left:-100px;
+}
+
+.glow:nth-child(2){
+    background:#00ffcc;
+    bottom:-100px;
+    right:-100px;
+}
+
+/* HEADER */
+
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:20px 60px;
+
+    position:sticky;
+    top:0;
+    z-index:100;
+
+    background:rgba(0,0,0,0.35);
+
+    backdrop-filter:blur(12px);
+
+    border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+.logo{
+    font-size:24px;
+    font-weight:900;
+    color:var(--accent);
+
+    text-shadow:
+    0 0 10px rgba(34,255,102,0.5),
+    0 0 30px rgba(34,255,102,0.2);
+}
+
+nav{
+    display:flex;
+    align-items:center;
+}
+
+nav a{
+    color:white;
+
+    margin:0 18px;
+
+    text-decoration:none;
+
+    font-size:15px;
+
+    position:relative;
+
+    transition:0.3s;
+
+    opacity:0.85;
+}
+
+nav a:hover{
+    color:#22ff66;
+    opacity:1;
+}
+
+nav a::after{
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    bottom:-6px;
+
+    width:0%;
+    height:2px;
+
+    background:#22ff66;
+
+    transition:0.3s;
+}
+
+nav a:hover::after{
+    width:100%;
+}
+
+/* BUTTONS */
+
+.btn,
+.primary-btn{
+    background:
+    linear-gradient(
+    90deg,
+    #22ff66,
+    #8cff66
+    );
+
+    padding:15px 30px;
+
+    border-radius:999px;
+
+    color:black;
+
+    text-decoration:none;
+
+    font-weight:800;
+
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+
+    transition:0.4s;
+
+    box-shadow:
+    0 0 25px rgba(34,255,102,0.3);
+}
+
+.btn:hover,
+.primary-btn:hover{
+    transform:
+    translateY(-4px)
+    scale(1.06);
+
+    box-shadow:
+    0 0 45px rgba(34,255,102,0.6);
+}
+
+.secondary-btn{
+    border:
+    1px solid rgba(34,255,102,0.5);
+
+    padding:15px 30px;
+
+    border-radius:999px;
+
+    color:#22ff66;
+
+    text-decoration:none;
+
+    font-weight:700;
+
+    transition:0.4s;
+
+    background:
+    rgba(255,255,255,0.03);
+
+    backdrop-filter:blur(10px);
+}
+
+.secondary-btn:hover{
+    background:
+    rgba(34,255,102,0.12);
+
+    transform:
+    translateY(-4px);
+}
+
+/* HERO */
+
+.hero{
+    min-height:100vh;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:80px;
+
+    gap:50px;
+}
+
+.hero-text{
+    max-width:50%;
+}
+
+.hero h1{
+    font-size:72px;
+    line-height:1.05;
+
+    margin-bottom:25px;
+
+    background:linear-gradient(
+    90deg,
+    #ffffff,
+    #8cff66,
+    #22ff66
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.hero p{
+    font-size:18px;
+    color:#b6e6ca;
+    margin-bottom:30px;
+}
+
+.buttons{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+/* PHONE */
+
+/* PHONE 3D */
+
+.mock{
+    width:320px;
+    height:650px;
+
+    position:relative;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    perspective:1400px;
+
+    animation:floatPhone 5s ease-in-out infinite;
+}
+
+.phone3d{
+    width:300px;
+    height:610px;
+
+    border-radius:45px;
+
+    background:
+    linear-gradient(
+        145deg,
+        rgba(20,20,20,0.95),
+        rgba(60,60,60,0.85)
+    );
+
+    border:3px solid rgba(255,255,255,0.08);
+
+    position:relative;
+
+    overflow:hidden;
+
+    transform:
+        rotateY(-18deg)
+        rotateX(8deg);
+
+    transition:0.6s;
+
+    box-shadow:
+        0 40px 80px rgba(0,0,0,0.65),
+        0 0 60px rgba(34,255,102,0.18);
+}
+
+.phone3d:hover{
+    transform:
+        rotateY(0deg)
+        rotateX(0deg)
+        scale(1.03);
+}
+
+/* SCREEN */
+
+.screen{
+    position:absolute;
+
+    inset:12px;
+
+    border-radius:35px;
+
+    background:
+    linear-gradient(
+        180deg,
+        #07130a,
+        #0b1f11
+    );
+
+    overflow:hidden;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+/* CAMERA */
+
+.camera{
+    position:absolute;
+
+    top:18px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:110px;
+    height:24px;
+
+    border-radius:20px;
+
+    background:black;
+
+    z-index:5;
+}
+
+/* REFLECTION */
+
+.screen::before{
+    content:"";
+
+    position:absolute;
+
+    top:-20%;
+    left:-40%;
+
+    width:60%;
+    height:140%;
+
+    background:
+    linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.12),
+        transparent
+    );
+
+    transform:rotate(20deg);
+
+    animation:shine 5s linear infinite;
+}
+
+/* FLOAT */
+
+@keyframes floatPhone{
+    0%{
+        transform:translateY(0px);
+    }
+
+    50%{
+        transform:translateY(-20px);
+    }
+
+    100%{
+        transform:translateY(0px);
+    }
+}
+
+/* SHINE */
+
+@keyframes shine{
+    0%{
+        left:-60%;
+    }
+
+    100%{
+        left:140%;
+    }
+}
+
+.phone-ui{
+    text-align:center;
+}
+
+.circle-score{
+    width:140px;
+    height:140px;
+
+    border-radius:50%;
+
+    border:8px solid #22ff66;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    margin:auto;
+
+    font-size:38px;
+    font-weight:900;
+
+    color:#22ff66;
+
+    box-shadow:
+    0 0 40px rgba(34,255,102,0.35);
+}
+
+.phone-ui h3{
+    margin-top:25px;
+    font-size:28px;
+}
+
+.phone-ui p{
+    color:#8cff66;
+    font-weight:700;
+}
+
+/* FEATURES */
+
+.features{
+    display:flex;
+    justify-content:space-around;
+    gap:30px;
+
+    padding:60px;
+
+    background:rgba(255,255,255,0.08);
+
+    flex-wrap:wrap;
+}
+
+.card{
+    flex:1;
+    min-width:250px;
+
+    background:rgba(255,255,255,0.06);
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    border-radius:24px;
+
+    padding:30px;
+
+    backdrop-filter:blur(14px);
+
+    transition:0.4s;
+
+    position:relative;
+    overflow:hidden;
+}
+
+.card:hover{
+    transform:translateY(-10px);
+
+    box-shadow:
+    0 15px 40px rgba(34,255,102,0.18);
+}
+
+.card h3{
+    color:#bcf0c0;
+}
+
+.card p{
+    color:#b6c7e6;
+}
+.card::before{
+    content:"";
+
+    position:absolute;
+
+    width:200%;
+    height:200%;
+
+    background:
+    radial-gradient(
+    circle,
+    rgba(34,255,102,0.15),
+    transparent 60%
+    );
+
+    top:-50%;
+    left:-50%;
+
+    transform:rotate(25deg);
+
+    opacity:0;
+
+    transition:0.5s;
+}
+
+.card:hover::before{
+    opacity:1;
+}
+/* FOOTER */
+
+footer{
+    text-align:center;
+    padding:20px;
+    background:#75ce6d50;
+    color:white;
+}
+
+/* RESPONSIVE */
+
+@media (max-width:768px){
+
+    header{
+        flex-direction:column;
+        gap:20px;
+        padding:20px;
+        text-align:center;
+    }
+
+    nav{
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:15px;
+    }
+
+    nav a{
+        margin:0;
+        font-size:14px;
+    }
+
+    .hero{
+        flex-direction:column;
+        text-align:center;
+        padding:40px 20px;
+    }
+
+    .hero-text{
+        max-width:100%;
+    }
+
+    .hero h1{
+        font-size:42px;
+        line-height:1.1;
+    }
+
+    .hero p{
+        font-size:16px;
+    }
+
+    .buttons{
+        justify-content:center;
+    }
+
+    .primary-btn,
+    .secondary-btn,
+    .btn{
+        width:100%;
+        max-width:280px;
+    }
+
+    .mock{
+        width:100%;
+        height:auto;
+    }
+
+    .phone3d{
+        width:240px;
+        height:500px;
+
+        transform:
+        rotateY(0deg)
+        rotateX(0deg);
+    }
+
+    .circle-score{
+        width:110px;
+        height:110px;
+        font-size:30px;
+    }
+
+    .phone-ui h3{
+        font-size:22px;
+    }
+
+    .features{
+        flex-direction:column;
+        padding:30px 20px;
+    }
+
+    .card{
+    
+        width:100%;
+        box-sizing:border-box;
+    }
+
+    .glow{
+        width:250px;
+        height:250px;
+    }
+
+    footer{
+        font-size:14px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="particles"></div>
+
+<div class="glow"></div>
+<div class="glow"></div>
+
+<header>
+    <div class="logo">EcoDevice Analyzer</div>
+
+    <nav>
+        <a href="Index.html">Home</a>
+        <a href="HowItWorks.html">How It Works</a>
+        <a href="Impact.html">Impact</a>
+        <a href="Contact.html">Contact</a>
+    </nav>
+
+    <a class="btn" href="HowItWorks.html">Get Started</a>
+</header>
+
+<section class="hero">
+
+    <div class="hero-text">
+
+        <h1>
+    Should<span>your phone be</span>recycled or refurbished?
+</h1>
+
+        <p>
+            AI analyzes your device condition and helps you decide the most sustainable option:
+            recycle or give it a second life.
+        </p>
+
+        <div class="buttons">
+            <a class="primary-btn" href="AI.html">
+                Check Your Phone
+            </a>
+
+            <a class="secondary-btn" href="HowItWorks.html">
+                How It Works
+            </a>
+        </div>
+
+    </div>
+
+    <div class="mock">
+
+        <div class="phone3d">
+
+            <div class="camera"></div>
+
+            <div class="screen">
+
+                <div class="phone-ui">
+
+                    <div class="circle-score">
+                        87%
+                    </div>
+
+                    <h3>AI Sustainability Score</h3>
+
+                    <p>Recommended: REFURBISH</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="features">
+
+    <div class="card">
+        <h3>♻️ Sustainable Impact</h3>
+
+        <p>
+            Extend device life and reduce electronic waste using AI decisions.
+        </p>
+    </div>
+
+    <div class="card">
+        <h3>🤖 AI Analysis</h3>
+
+        <p>
+            Smart evaluation of battery, performance and condition.
+        </p>
+    </div>
+
+    <div class="card">
+        <h3>🔒 Secure & Private</h3>
+
+        <p>
+            Your data is not stored. Fully safe device checking system.
+        </p>
+    </div>
+
+</section>
+
+<footer>
+    ©️ 2026 EcoDevice Analyzer - Genius Olympiad Project
+</footer>
+
+</body>
+</html>
