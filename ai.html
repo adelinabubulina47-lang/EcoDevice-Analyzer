@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>EcoDevice Analyzer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+  --bg: #07130a;
+  --panel: rgba(255,255,255,0.08);
+  --muted: #9effb3;
+  --text: #ffffff;
+  --accent: #22ff66;
+  --good: #22ff66;
+  --warn: #ffd23f;
+  --bad: #ff4d4d;
+}
+    
+    * { box-sizing: border-box; }
+   body{
+  margin:0;
+  color:var(--text);
+  font-family:Arial,sans-serif;
+  line-height:1.4;
+
+  background:
+    linear-gradient(rgba(0,0,0,0.65),
+    rgba(0,0,0,0.7)),
+    url("https://images.unsplash.com/photo-1560209617-059c0bd661ba?ixlib=rb-4.1.0&q=85&fm=jpg&crop=entropy&cs=srgb&dl=eirik-solheim-mWTOR3Rx8l8-unsplash.jpg");
+
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
+}
+.navbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  padding:20px 60px;
+
+  position:sticky;
+  top:0;
+  z-index:100;
+
+  background:rgba(0,0,0,0.35);
+
+  backdrop-filter:blur(12px);
+
+  border-bottom:1px solid rgba(255,255,255,0.08);
+}
+.logo{
+  font-size:24px;
+  font-weight:900;
+  color:#22ff66;
+
+  text-shadow:
+    0 0 10px rgba(34,255,102,0.5),
+    0 0 30px rgba(34,255,102,0.2);
+}
+nav{
+    display:flex;
+    align-items:center;
+}
+nav a{
+  color:white;
+
+  margin:0 18px;
+
+  text-decoration:none;
+
+  font-size:15px;
+
+  position:relative;
+
+  transition:0.3s;
+
+  opacity:0.85;
+}
+
+nav a:hover{
+  color:#22ff66;
+  opacity:1;
+}
+
+nav a::after{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  bottom:-6px;
+
+  width:0%;
+  height:2px;
+
+  background:#22ff66;
+
+  transition:0.3s;
+}
+
+nav a:hover::after{
+  width:100%;
+}
+
+/* BUTTON */
+.btn{
+    background:
+    linear-gradient(
+        90deg,
+        #22ff66,
+        #8cff66
+    );
+
+    padding:15px 30px;
+
+    border-radius:999px;
+
+    color:black;
+
+    text-decoration:none;
+
+    font-weight:800;
+
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+
+    transition:0.4s;
+
+    box-shadow:
+    0 0 25px rgba(34,255,102,0.3);
+}
+
+.btn:hover{
+    transform:
+    translateY(-4px)
+    scale(1.06);
+
+    box-shadow:
+    0 0 45px rgba(34,255,102,0.6);
+}
+/* HERO HEADER */
+.hero-header{
+  padding:60px 20px;
+  text-align:center;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+  background:rgba(0,0,0,0.35);
+  backdrop-filter:blur(8px);
+}
+ 
+    header {
+      display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:20px 60px;
+
+    position:sticky;
+    top:0;
+    z-index:100;
+
+    background:rgba(0,0,0,0.35);
+
+    backdrop-filter:blur(12px);
+
+    border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+.logo{
+    font-size:24px;
+    font-weight:900;
+    color:var(--accent);
+
+    text-shadow:
+    0 0 10px rgba(34,255,102,0.5),
+    0 0 30px rgba(34,255,102,0.2);
+}
+
+nav a{
+    color:white;
+    margin:0 18px;
+    text-decoration:none;
+    font-size:15px;
+    position:relative;
+    transition:0.3s;
+    opacity:0.85;
+}
+
+nav a:hover{
+    color:#22ff66;
+    opacity:1;
+}
+
+nav a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-6px;
+
+    width:0%;
+    height:2px;
+
+    background:#22ff66;
+
+    transition:0.3s;
+}
+
+nav a:hover::after{
+    width:100%;
+}
+
+/* BUTTON */
+.btn{
+    background:linear-gradient(
+        90deg,
+        #22ff66,
+        #8cff66
+    );
+
+    padding:15px 30px;
+
+    border-radius:999px;
+
+    color:rgb(0, 0, 0);
+    text-decoration:none;
+    font-weight:800;
+
+    position:relative;
+    overflow:hidden;
+
+    transition:0.4s;
+
+    box-shadow:
+    0 0 25px rgba(34,255,102,0.3);
+}
+
+.btn:hover{
+    transform:
+    translateY(-4px)
+    scale(1.06);
+
+    box-shadow:
+    0 0 45px rgba(34,255,102,0.6);
+  padding: 60px 20px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+ .hero-header h1{
+    font-size:72px;
+
+    background:linear-gradient(
+        90deg,
+        #ffffff,
+        #8cff66,
+        #22ff66
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    text-transform:uppercase;
+    letter-spacing:4px;
+
+    margin:0;
+}
+.subtitle {
+  color: white;
+  margin-top: 12px;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+}
+    main { max-width: 900px; margin: 24px auto; padding: 0 16px 48px; display: grid; gap: 20px; grid-template-columns: 1fr; }
+    @media (min-width: 900px) { main { grid-template-columns: 1.1fr 0.9fr; } }
+    .card {
+  background: rgba(255,255,255,0.08);
+
+  border: 1px solid rgba(255,255,255,0.15);
+
+  border-radius: 25px;
+  padding: 24px;
+
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.4);
+
+  backdrop-filter: blur(14px);
+}
+    .section-title {
+  font-size: 13px;
+  color: #8cff66;
+
+  text-transform: uppercase;
+
+  letter-spacing: 2px;
+
+  margin-bottom: 18px;
+
+  font-weight: 700;
+}
+    .grid { display: grid; gap: 12px; }
+    .row { display: grid; gap: 10px; grid-template-columns: 1fr; }
+    @media (min-width: 560px) {
+      .row.two { grid-template-columns: 1fr 1fr; }
+      .row.three { grid-template-columns: 1fr 1fr 1fr; }
+    }
+    label { font-weight: 600; font-size: 13px; color: #b9db81; }
+    input[type="text"],
+select,
+input[type="number"] {
+
+  width: 100%;
+  padding: 12px;
+
+  border-radius: 14px;
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  background: rgba(255,255,255,0.08);
+
+  color: white;
+
+  font-size: 15px;
+}
+select option {
+  background-color: #07130a;
+  color: white;
+}
+
+select option:checked {
+  background-color: #14532d;
+  color: #22ff66;
+}
+    button:hover{
+  transform: scale(1.05);
+}
+    input::placeholder { color: #98a1ae; }
+    .help { font-size: 12px;
+  color: rgba(200, 255, 220, 0.9);
+  margin-top: 6px;
+  text-shadow: 0 0 6px rgba(34, 255, 102, 0.15);}
+    .actions { display: flex; gap: 10px; margin-top: 6px; }
+    button {
+  appearance: none;
+  border: none;
+
+  border-radius: 999px;
+
+  padding: 15px 28px;
+
+  font-weight: 800;
+  cursor: pointer;
+
+  color: rgb(0, 0, 0);
+
+  background: linear-gradient(
+    90deg,
+    #22ff66,
+    #8cff66
+  );
+
+  font-size: 1rem;
+
+  transition: 0.3s;
+
+  box-shadow:
+    0 0 20px rgba(34,255,102,0.4);
+}
+button:hover{
+  transform: scale(1.05);
+}
+    button.secondary {
+      background: transparent; color: #22ec6c; border: 1px solid rgba(2, 255, 23, 0.837);
+      box-shadow: none;
+    }
+    .result {
+      display: none; margin-top: 6px; border-radius: 12px; padding: 14px; color: #22ec6c; border: 1px dashed rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.03);
+    }
+    .badge {
+      display: inline-block; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 800; letter-spacing: 0.3px;
+    }
+    .badge.use {  color: #43db7b;
+  border: 1px solid rgba(74, 222, 128, 0.533) }
+    .badge.refurbish { background: rgba(245,158,11,0.18); color: #fbbf24; border: 1px solid rgba(251,191,36,0.4); }
+    .badge.recycle { background: rgba(239,68,68,0.18); color: #f87171; border: 1px solid rgba(248,113,113,0.4); }
+    ul { margin: 10px 0 0 18px; }
+    .muted { color: #b5d3c1; }
+    footer{
+    text-align:center;
+
+    padding:30px;
+
+    background:rgba(34,255,102,0.12);
+
+    border-top:1px solid rgba(255,255,255,0.08);
+
+    color:white;
+
+    margin-top:50px;
+}
+.info-box{
+
+  margin-top:12px;
+
+  padding:20px;
+
+  border-radius:20px;
+
+  text-align:center;
+
+  backdrop-filter:blur(12px);
+
+  background:linear-gradient(
+      135deg,
+      rgba(18,90,50,0.55),
+      rgba(34,255,102,0.18),
+      rgba(255,255,255,0.08)
+  );
+
+  border:1px solid rgba(140,255,180,0.35);
+
+  box-shadow:
+      0 0 20px rgba(34,255,102,0.15);
+}
+
+.score-box{
+
+  margin-top:12px;
+
+  padding:20px;
+
+  border-radius:20px;
+
+  text-align:center;
+
+  font-size:24px;
+  font-weight:900;
+
+  backdrop-filter:blur(12px);
+
+  border:1px solid rgba(255,255,255,0.15);
+}
+
+.score-use{
+
+  background:linear-gradient(
+      135deg,
+      rgba(20,100,40,0.8),
+      rgba(34,255,102,0.25),
+      rgba(255,255,255,0.08)
+  );
+
+  box-shadow:0 0 25px rgba(34,255,102,0.25);
+}
+
+.score-refurbish{
+
+  background:linear-gradient(
+      135deg,
+      rgba(120,90,0,0.8),
+      rgba(255,210,63,0.25),
+      rgba(255,255,255,0.08)
+  );
+
+  box-shadow:0 0 25px rgba(255,210,63,0.25);
+}
+
+.score-recycle{
+
+  background:linear-gradient(
+      135deg,
+      rgba(120,20,20,0.8),
+      rgba(255,77,77,0.25),
+      rgba(255,255,255,0.08)
+  );
+
+  box-shadow:0 0 25px rgba(255,77,77,0.25);
+}
+.co2-box{
+
+  margin-top:12px;
+
+  padding:20px;
+
+  border-radius:20px;
+
+  text-align:center;
+
+  font-weight:700;
+
+  background:linear-gradient(
+      135deg,
+      rgba(18,90,50,0.55),
+      rgba(34,255,102,0.18),
+      rgba(255,255,255,0.08)
+  );
+
+  border:1px solid rgba(140,255,180,0.35);
+
+  backdrop-filter:blur(12px);
+
+  box-shadow:
+      0 0 20px rgba(34,255,102,0.15);
+}
+
+.co2-title{
+
+  font-size:15px;
+
+  letter-spacing:1px;
+
+  text-transform:uppercase;
+
+  margin-bottom:8px;
+
+  background:linear-gradient(
+      90deg,
+      #4ade80,
+      #ffffff
+  );
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.co2-value{
+
+  font-size:30px;
+
+  font-weight:900;
+
+  background:linear-gradient(
+      90deg,
+      #22ff66,
+      #ffffff
+  );
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.co2-note{
+
+  margin-top:8px;
+
+  color:#d7ffe3;
+
+  font-size:14px;
+}
+  </style>
+</head>
+<body>
+  <header class="navbar">
+
+    <div class="logo">EcoDevice Analyzer</div>
+
+    <nav>
+        <a href="Home.html">Home</a>
+        <a href="#">How It Works</a>
+        <a href="#">Impact</a>
+        <a href="#">Contact</a>
+    </nav>
+
+    <a class="btn" href="#">Get Started</a>
+
+</header>
+
+<section class="hero-header">
+
+    <h1>EcoDevice Analyzer</h1>
+    <div class="subtitle">Give Devices Another Life.</div>
+
+</section>
+
+  <main>
+    <section class="card">
+      <div class="section-title">Enter Details</div>
+      <div class="grid">
+        <div class="row two">
+          <div>
+            <label for="brand">Brand</label>
+            <input id="brand" type="text" placeholder="e.g., Apple, Samsung, Google" />
+          </div>
+          <div>
+            <label for="model">Model</label>
+            <input id="model" type="text" placeholder="e.g., iPhone 12, Galaxy S21" />
+          </div>
+        </div>
+
+        <div class="row two">
+          <div>
+            <label for="works">Does it power on and function?</label>
+            <select id="works">
+              <option value="yes" selected>Yes</option>
+              <option value="partially">Partially (boot loops, random shutdowns, key features broken)</option>
+              <option value="no">No</option>
+            </select>
+            <div class="help">“Partially” means it turns on but has major functional issues.</div>
+          </div>
+          <div>
+            <label for="screen">Screen condition</label>
+            <select id="screen">
+              <option value="good" selected>Good</option>
+              <option value="cracked">Cracked</option>
+              <option value="severely-cracked">Severely cracked / shattered</option>
+              <option value="no-display">No display / touch not working</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row three">
+          <div>
+            <label for="batteryHealth">Battery health (%)</label>
+            <input id="batteryHealth" type="number" min="0" max="100" placeholder="e.g., 85" />
+            <div class="help">If unknown, leave blank.</div>
+          </div>
+          <div>
+            <label for="batteryStatus">Battery behavior</label>
+            <select id="batteryStatus">
+              <option value="normal" selected>Normal</option>
+              <option value="drains-fast">Drains fast</option>
+              <option value="swollen">Swollen</option>
+              <option value="won-charge">Won’t charge</option>
+            </select>
+          </div>
+          <div>
+            <label for="age">Approx. age (years)</label>
+            <input id="age" type="number" min="0" max="10" step="0.5" placeholder="e.g., 3" />
+          </div>
+        </div>
+
+        <div class="row two">
+          <div>
+            <label for="storage">Storage state</label>
+            <select id="storage">
+              <option value="adequate" selected>Adequate for my needs</option>
+              <option value="nearly-full">Nearly full</option>
+              <option value="insufficient">Insufficient</option>
+            </select>
+          </div>
+          <div>
+            <label for="otherIssues">Other notable issues</label>
+            <input id="otherIssues" type="text" placeholder="e.g., water damage, camera broken, no signal" />
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="recommendBtn">Get Recommendation</button>
+          <button class="secondary" id="resetBtn" type="button">Reset</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-title">Recommendation</div>
+      <div id="result" class="result">
+        <div id="decisionLine" style="margin-bottom:8px"></div>
+        <div id="summary" class="muted"></div>
+      <div id="ecoScore" style="margin-top:12px"></div>
+<div id="co2"></div>
+<div id="repairCost"></div>
+<div id="impactComparison"></div>
+<div id="circularEconomy"></div>
+<div id="recoveryValue"></div>
+        <h4 style="margin:10px 0 6px">Recyclable materials & recovery notes</h4>
+        <ul id="materialsList"></ul>
+        <ul id="actionsList"></ul>
+      </div>
+      <div id="placeholder" class="muted">Fill the form and click “Get Recommendation”.</div>
+    </section>
+  </main>
+
+  <footer>
+
+    <p>
+        © 2026 EcoDevice Analyzer - Genius Olympiad Project
+    </p>
+
+    <p>
+        This is a heuristic guide, not professional repair advice.
+    </p>
+
+</footer>
+
+<script>
+function sanitizePercent(n) {
+  if (n === "" || n === null || n === undefined) return null;
+
+  const v = Number(n);
+
+  if (Number.isNaN(v)) return null;
+
+  return Math.min(100, Math.max(0, v));
+}
+
+function scoreRecommendation(data) {
+
+  let score = 50;
+
+  if (data.works === "no") score -= 50;
+  else if (data.works === "partially") score -= 25;
+  else score += 10;
+
+  switch (data.screen) {
+    case "good":
+      score += 10;
+      break;
+
+    case "cracked":
+      score -= 10;
+      break;
+
+    case "severely-cracked":
+      score -= 25;
+      break;
+
+    case "no-display":
+      score -= 40;
+      break;
+  }
+
+  if (data.batteryStatus === "swollen") score -= 60;
+  else if (data.batteryStatus === "won-charge") score -= 35;
+  else if (data.batteryStatus === "drains-fast") score -= 15;
+
+  if (data.batteryHealth !== null) {
+
+    if (data.batteryHealth >= 90) score += 8;
+    else if (data.batteryHealth >= 80) score += 4;
+    else if (data.batteryHealth >= 70) score -= 6;
+    else if (data.batteryHealth >= 60) score -= 14;
+    else score -= 24;
+  }
+
+  if (data.age !== null) {
+
+    if (data.age < 2) score += 8;
+    else if (data.age < 4) score += 2;
+    else if (data.age < 6) score -= 6;
+    else score -= 12;
+  }
+
+  if (data.storage === "nearly-full") score -= 4;
+  else if (data.storage === "insufficient") score -= 10;
+
+  const issues = (data.otherIssues || "").toLowerCase();
+
+  if (issues.includes("water")) score -= 25;
+  if (issues.includes("camera")) score -= 6;
+  if (issues.includes("mic")) score -= 6;
+  if (issues.includes("speaker")) score -= 6;
+  if (issues.includes("no signal")) score -= 10;
+  if (issues.includes("antenna")) score -= 10;
+  if (issues.includes("motherboard")) score -= 40;
+  if (issues.includes("logic board")) score -= 40;
+
+  return Math.max(-100, Math.min(100, score));
+}
+
+function decide(score) {
+
+  if (score >= 25) {
+    return {
+      label: "Use",
+      badge: "use"
+    };
+  }
+
+  if (score >= -49) {
+    return {
+      label: "Refurbish",
+      badge: "refurbish"
+    };
+  }
+
+  return {
+    label: "Recycle",
+    badge: "recycle"
+  };
+}
+
+function buildActions(data, decision) {
+
+  const actions = [];
+
+  if (data.batteryStatus === "swollen") {
+
+    actions.push(
+      "Stop using the device immediately. Swollen batteries are dangerous."
+    );
+  }
+
+  if (decision.label === "Use") {
+
+    actions.push("Continue using the device.");
+
+    if (data.screen !== "good") {
+      actions.push("Consider replacing the screen.");
+    }
+
+    if (
+      data.batteryStatus === "drains-fast" ||
+      (data.batteryHealth !== null &&
+        data.batteryHealth < 80)
+    ) {
+      actions.push("Battery replacement recommended.");
+    }
+  }
+
+  else if (decision.label === "Refurbish") {
+
+    actions.push("Repair before continuing regular use.");
+
+    if (data.screen !== "good") {
+      actions.push("Screen replacement recommended.");
+    }
+
+    if (
+      data.batteryStatus !== "normal" ||
+      (data.batteryHealth !== null &&
+        data.batteryHealth < 80)
+    ) {
+      actions.push("Battery replacement recommended.");
+    }
+
+    actions.push("Run full hardware diagnostics.");
+  }
+
+  else {
+
+    actions.push("Recycle through a certified e-waste center.");
+    actions.push("Factory reset the device before disposal.");
+    actions.push("Remove SIM and memory cards.");
+  }
+
+  actions.push(
+    "Extending device life helps reduce electronic waste."
+  );
+
+  return [...new Set(actions)];
+}
+
+function summarize(data) {
+
+  const name = [data.brand, data.model]
+    .filter(Boolean)
+    .join(" ");
+
+  const parts = [];
+
+  if (name) parts.push(name);
+
+  if (data.works === "yes")
+    parts.push("functional");
+
+  else if (data.works === "partially")
+    parts.push("partially functional");
+
+  else
+    parts.push("not working");
+
+  parts.push(data.screen.replace(/-/g, " "));
+
+  if (data.batteryHealth !== null) {
+    parts.push(`battery ${data.batteryHealth}%`);
+  }
+
+  if (data.age !== null) {
+    parts.push(`${data.age} years old`);
+  }
+
+  return parts.join(" • ");
+}
+
+function estimateCO2(label) {
+
+  if (label === "Use") {
+    return {
+      kg: 80,
+      note: "Highest environmental benefit."
+    };
+  }
+
+  if (label === "Refurbish") {
+    return {
+      kg: 55,
+      note: "Good sustainability impact."
+    };
+  }
+
+  return {
+    kg: 30,
+    note: "Material recovery only."
+  };
+}
+
+function estimateMaterials(label) {
+
+  if (label === "Use") {
+
+    return [
+      ["Glass", "Screen materials preserved"],
+      ["Aluminium", "Highly recyclable"],
+      ["Copper", "Valuable recyclable metal"],
+      ["Lithium", "Battery material"]
+    ];
+  }
+
+  if (label === "Refurbish") {
+
+    return [
+      ["Screen", "Can often be replaced"],
+      ["Battery", "Replace and recycle"],
+      ["Copper", "Recoverable"],
+      ["Aluminium", "Recoverable"]
+    ];
+  }
+
+  return [
+    ["Glass", "Recyclable"],
+    ["Aluminium", "Highly recyclable"],
+    ["Copper", "High recovery value"],
+    ["Lithium", "Specialized recycling"]
+  ];
+}
+
+function estimateRepairCost(data) {
+
+  let cost = 0;
+
+  if (data.screen === "cracked") cost += 80;
+  if (data.screen === "severely-cracked") cost += 150;
+  if (data.screen === "no-display") cost += 180;
+
+  if (data.batteryStatus !== "normal") {
+    cost += 60;
+  }
+
+  if (data.works === "no") {
+    cost += 120;
+  }
+
+  return cost;
+}
+
+function estimateRecovery(score) {
+
+  if (score > 50) return 90;
+  if (score > 20) return 70;
+  if (score > -20) return 50;
+
+  return 20;
+}
+
+function calculateEcoScore(score) {
+
+  return Math.round(
+    ((score + 100) / 200) * 100
+  );
+}
+
+function getTreeEquivalent(co2) {
+  return Math.round(co2 / 21);
+}
+
+function showResult(
+  decision,
+  summary,
+  actions,
+  data,
+  score
+) {
+
+  const result =
+    document.getElementById("result");
+
+  const placeholder =
+    document.getElementById("placeholder");
+
+  const decisionLine =
+    document.getElementById("decisionLine");
+
+  const summaryEl =
+    document.getElementById("summary");
+
+let scoreClass = "";
+
+if(decision.label === "Use"){
+  scoreClass = "score-use";
+}
+else if(decision.label === "Refurbish"){
+  scoreClass = "score-refurbish";
+}
+else{
+  scoreClass = "score-recycle";
+}
+
+  const co2El =
+    document.getElementById("co2");
+
+  const materialsList =
+    document.getElementById("materialsList");
+
+  const actionsList =
+    document.getElementById("actionsList");
+
+  placeholder.style.display = "none";
+  result.style.display = "block";
+
+  decisionLine.innerHTML =
+    `<span class="badge ${decision.badge}">
+      ${decision.label}
+    </span>`;
+
+  summaryEl.textContent = summary;
+
+  const co2 =
+    estimateCO2(decision.label);
+
+  const ecoScore =
+    calculateEcoScore(score);
+
+  const recovery =
+    estimateRecovery(score);
+
+  const repairCost =
+    estimateRepairCost(data);
+
+  document.getElementById("ecoScore").innerHTML =
+`
+<div class="score-box ${scoreClass}">
+  Eco Score: ${ecoScore}/100
+</div>
+`;
+  document.getElementById(
+    "repairCost"
+  ).innerHTML =
+    `<div class="info-box box1">
+      Estimated Repair Cost: $${repairCost}
+    </div>`;
+
+  document.getElementById(
+    "impactComparison"
+  ).innerHTML =
+    `<div class="info-box box2">
+      🌳 Equivalent to planting
+      ${getTreeEquivalent(co2.kg)}
+      trees
+    </div>`;
+
+  document.getElementById(
+    "circularEconomy"
+  ).innerHTML =
+    `<div class="info-box box3">
+      Circular Economy Benefit:
+      Extending device life reduces
+      e-waste and emissions.
+    </div>`;
+
+  document.getElementById(
+    "recoveryValue"
+  ).innerHTML =
+    `<div class="info-box box4">
+      Material Recovery Potential:
+      ${recovery}%
+    </div>`;
+
+  co2El.innerHTML =
+`
+<div class="co2-box">
+
+  <div class="co2-title">
+    Estimated CO₂ Saved
+  </div>
+
+  <div class="co2-value">
+    ${co2.kg} kg
+  </div>
+
+  <div class="co2-note">
+    ${co2.note}
+  </div>
+
+</div>
+`;
+
+  materialsList.innerHTML = "";
+
+  estimateMaterials(decision.label)
+    .forEach(m => {
+
+      const li =
+        document.createElement("li");
+
+      li.innerHTML =
+        `<strong>${m[0]}:</strong> ${m[1]}`;
+
+      materialsList.appendChild(li);
+    });
+
+  actionsList.innerHTML = "";
+
+  actions.forEach(a => {
+
+    const li =
+      document.createElement("li");
+
+    li.textContent = a;
+
+    actionsList.appendChild(li);
+  });
+}
+
+function collectData() {
+
+  return {
+    brand:
+      document.getElementById("brand").value.trim(),
+
+    model:
+      document.getElementById("model").value.trim(),
+
+    works:
+      document.getElementById("works").value,
+
+    screen:
+      document.getElementById("screen").value,
+
+    batteryHealth:
+      sanitizePercent(
+        document.getElementById(
+          "batteryHealth"
+        ).value
+      ),
+
+    batteryStatus:
+      document.getElementById(
+        "batteryStatus"
+      ).value,
+
+    age:
+      document.getElementById("age").value
+        ? Number(
+            document.getElementById("age")
+              .value
+          )
+        : null,
+
+    storage:
+      document.getElementById("storage")
+        .value,
+
+    otherIssues:
+      document.getElementById(
+        "otherIssues"
+      ).value.trim()
+  };
+}
+
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+
+    document
+      .getElementById("recommendBtn")
+      .addEventListener(
+        "click",
+        () => {
+
+          const data = collectData();
+
+          const score =
+            scoreRecommendation(data);
+
+          const decision =
+            decide(score);
+
+          const summary =
+            summarize(data);
+
+          const actions =
+            buildActions(
+              data,
+              decision
+            );
+
+          showResult(
+            decision,
+            summary,
+            actions,
+            data,
+            score
+          );
+        }
+      );
+
+    document
+      .getElementById("resetBtn")
+      .addEventListener(
+        "click",
+        () => {
+
+          location.reload();
+        }
+      );
+  }
+);
+</script>
+</body>
+</html>

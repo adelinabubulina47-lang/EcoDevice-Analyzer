@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EcoDevice Analyzer - How It Works</title>
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+body{
+    background:#071018;
+    color:white;
+    overflow-x:hidden;
+}
+
+
+.glow{
+    position:absolute;
+    width:500px;
+    height:500px;
+
+    border-radius:50%;
+
+    filter:blur(140px);
+
+    opacity:0.18;
+}
+
+.glow:nth-child(1){
+    background:#22ff66;
+    top:-100px;
+    left:-100px;
+}
+
+.glow:nth-child(2){
+    background:#00ffcc;
+    bottom:-100px;
+    right:-100px;
+}
+/* NAVBAR */
+.navbar{
+    width:100%;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:20px 60px;
+
+    position:sticky;
+    top:0;
+
+    z-index:100;
+
+    background:rgba(0,0,0,0.35);
+
+    backdrop-filter:blur(12px);
+
+    border-bottom:1px solid rgba(255,255,255,0.08);
+}
+.logo{
+    font-size:24px;
+    font-weight:900;
+    color:#22ff66;
+
+    text-shadow:
+    0 0 10px rgba(34,255,102,0.5),
+    0 0 30px rgba(34,255,102,0.2);
+}
+
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:0;
+}
+
+.nav-links a{
+    color:white;
+
+    margin:0 18px;
+
+    text-decoration:none;
+
+    font-size:15px;
+
+    position:relative;
+
+    transition:0.3s;
+
+    opacity:0.85;
+}
+
+.nav-links a:hover{
+    color:#22ff66;
+    opacity:1;
+}
+
+.nav-links a::after{
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    bottom:-6px;
+
+    width:0%;
+    height:2px;
+
+    background:#22ff66;
+
+    transition:0.3s;
+}
+
+.nav-links a:hover::after{
+    width:100%;
+}
+.btn{
+    background:
+    linear-gradient(
+    90deg,
+    #22ff66,
+    #8cff66
+    );
+
+    padding:15px 30px;
+
+    border-radius:999px;
+
+    color:black;
+
+    text-decoration:none;
+
+    font-weight:800;
+
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+
+    transition:0.4s;
+
+    box-shadow:
+    0 0 25px rgba(34,255,102,0.3);
+
+    position:relative;
+    overflow:hidden;
+}
+
+.btn:hover{
+    transform:
+    translateY(-4px)
+    scale(1.06);
+
+    box-shadow:
+    0 0 45px rgba(34,255,102,0.6);
+}
+
+.btn::before{
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:-100%;
+
+    width:100%;
+    height:100%;
+
+    background:
+    linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.5),
+    transparent
+    );
+
+    transition:0.6s;
+}
+
+.btn:hover::before{
+    left:100%;
+}
+/* HERO */
+.hero{
+    width:100%;
+    min-height:55vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:80px 20px;
+    background:
+    linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+    url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1600&auto=format&fit=crop');
+    background-size:cover;
+    background-position:center;
+}
+.hero-content{
+    max-width:900px;
+}
+.hero-content h1{
+    font-size:65px;
+    margin-bottom:20px;
+    line-height:1.1;
+}
+.hero-content h1{
+    font-size:65px;
+    margin-bottom:20px;
+    line-height:1.1;
+
+    background:linear-gradient(
+    90deg,
+    #ffffff,
+    #8cff66,
+    #22ff66
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+.hero-content p{
+    font-size:20px;
+    max-width:800px;
+    margin:auto;
+    color:#d5d5d5;
+    line-height:1.6;
+}
+
+.hero-content span,
+.ai-text span{
+    background:linear-gradient(
+    90deg,
+    #ffffff,
+    #8cff66,
+    #22ff66
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+/* STEPS */
+.steps{
+    padding:100px 70px;
+}
+.section-title{
+    text-align:center;
+    margin-bottom:70px;
+}
+.section-title h2{
+    font-size:50px;
+    margin-bottom:15px;
+}
+.section-title p{
+    color:#b8b8b8;
+    font-size:18px;
+}
+.steps-container{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(260px,1fr));
+    gap:35px;
+}
+.step-card{
+    background:#0d1b26;
+    border:1px solid rgba(116,255,77,0.2);
+    padding:40px 30px;
+    border-radius:25px;
+    transition:0.3s;
+}
+.step-card:hover{
+    transform:translateY(-10px);
+    border-color:#74ff4d;
+}
+.step-number{
+    width:70px;
+    height:70px;
+
+    border-radius:50%;
+
+    background:#22ff66;
+
+    color:black;
+
+    font-size:28px;
+    font-weight:bold;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    margin-bottom:25px;
+
+    box-shadow:
+    0 0 20px rgba(34,255,102,0.35),
+    0 0 50px rgba(34,255,102,0.25);
+}
+.step-card h3{
+    font-size:28px;
+    margin-bottom:20px;
+}
+.step-card p{
+    color:#c9c9c9;
+    line-height:1.7;
+    font-size:17px;
+}
+/* AI SECTION */
+.ai-section{
+    padding:100px 70px;
+    display:flex;
+    gap:60px;
+    align-items:center;
+    flex-wrap:wrap;
+}
+.ai-text{
+    flex:1;
+    min-width:300px;
+}
+.ai-text h2{
+    font-size:50px;
+    margin-bottom:25px;
+    line-height:1.1;
+}
+.ai-text span{
+    color:#74ff4d;
+}
+.ai-text p{
+    color:#d2d2d2;
+    line-height:1.8;
+    font-size:18px;
+    margin-bottom:20px;
+}
+.ai-box{
+    flex:1;
+    min-width:300px;
+    background:
+    linear-gradient(
+    145deg,
+    #16312b,
+    #0b1821
+    );
+    border:1px solid rgba(116,255,77,0.3);
+    padding:60px;
+    border-radius:30px;
+    text-align:center;
+}
+.circle{
+    width:180px;
+    height:180px;
+
+    border:10px solid #22ff66;
+
+    border-radius:50%;
+
+    margin:auto;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:45px;
+    font-weight:bold;
+
+    color:#22ff66;
+
+    margin-bottom:30px;
+
+    box-shadow:
+    0 0 20px rgba(34,255,102,0.3),
+    0 0 60px rgba(34,255,102,0.5);
+
+    animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+    0%{
+        box-shadow:0 0 20px rgba(34,255,102,0.2);
+    }
+
+    50%{
+        box-shadow:0 0 60px rgba(34,255,102,0.6);
+    }
+
+    100%{
+        box-shadow:0 0 20px rgba(34,255,102,0.2);
+    }
+}
+/* FOOTER */
+footer{
+    text-align:center;
+    padding:20px;
+    background:#75ce6d50;
+    color:white;
+}
+/* RESPONSIVE */
+@media(max-width:900px){
+    .navbar{
+        padding:20px;
+        flex-direction:column;
+        gap:20px;
+        text-align:center;
+    }
+    .nav-links{
+        justify-content:center;
+        gap:20px;
+    }
+    .btn{
+        width:100%;
+        max-width:250px;
+    }
+    .hero{
+        padding:70px 20px;
+    }
+    .hero-content h1{
+        font-size:42px;
+    }
+    .hero-content p{
+        font-size:17px;
+    }
+    .steps,
+    .ai-section{
+        padding:70px 25px;
+    }
+    .section-title h2,
+    .ai-text h2{
+        font-size:36px;
+    }
+    .section-title p{
+        font-size:16px;
+    }
+    .step-card{
+        padding:30px 25px;
+    }
+    .step-card h3{
+        font-size:24px;
+    }
+    .step-card p{
+        font-size:16px;
+    }
+    .ai-section{
+        flex-direction:column;
+        text-align:center;
+    }
+    .ai-box{
+        width:100%;
+        padding:40px 25px;
+    }
+    .circle{
+        width:140px;
+        height:140px;
+        font-size:36px;
+    }
+    footer{
+        padding:25px;
+        font-size:14px;
+    }
+}
+@media(max-width:500px){
+    .logo{
+        font-size:24px;
+    }
+    .hero-content h1{
+        font-size:34px;
+    }
+    .hero-content p{
+        font-size:15px;
+    }
+    .section-title h2,
+    .ai-text h2{
+        font-size:30px;
+    }
+    .nav-links a{
+        font-size:14px;
+    }
+    .step-number{
+        width:60px;
+        height:60px;
+        font-size:24px;
+    }
+}
+</style>
+</head>
+<body>
+
+
+
+<div class="glow"></div>
+<div class="glow"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="logo">
+        EcoDevice Analyzer
+    </div>
+    <div class="nav-links">
+        <a href="Index.html">Home</a>
+        <a href="HowItWorks.html">How It Works</a>
+        <a href="Impact.html">Impact</a>
+        <a href="Contact.html">Contact</a>
+    </div>
+    <a href="AI.html" class="btn">
+        Get Started
+    </a>
+</nav>
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>
+            How <span>EcoDevice</span> Works
+        </h1>
+        <p>
+            Our AI analyzes your phone’s condition and recommends
+            the most sustainable choice: recycle, refurbish,
+            or continue using your device.
+        </p>
+    </div>
+</section>
+<!-- STEPS -->
+<section class="steps">
+    <div class="section-title">
+        <h2>
+            Simple 4-Step Process
+        </h2>
+        <p>
+            Fast, intelligent and eco-friendly analysis
+        </p>
+    </div>
+    <div class="steps-container">
+        <div class="step-card">
+            <div class="step-number">
+                1
+            </div>
+            <h3>
+                Enter Device Information
+            </h3>
+            <p>
+                Add your phone model, battery health,
+                physical condition and performance details.
+            </p>
+        </div>
+        <div class="step-card">
+            <div class="step-number">
+                2
+            </div>
+            <h3>
+                AI Analysis
+            </h3>
+            <p>
+                Our artificial intelligence evaluates sustainability,
+                repair potential and environmental impact.
+            </p>
+        </div>
+        <div class="step-card">
+            <div class="step-number">
+                3
+            </div>
+            <h3>
+                Generate Sustainability Score
+            </h3>
+            <p>
+                The system creates an Eco Sustainability Score
+                based on your device condition.
+            </p>
+        </div>
+        <div class="step-card">
+            <div class="step-number">
+                4
+            </div>
+            <h3>
+                Receive Recommendation
+            </h3>
+            <p>
+                Get a smart recommendation:
+                refurbish, recycle or continue using your phone.
+            </p>
+        </div>
+    </div>
+</section>
+<!-- AI SECTION -->
+<section class="ai-section">
+    <div class="ai-text">
+        <h2>
+            Powered by <span>AI Sustainability</span>
+        </h2>
+        <p>
+            EcoDevice Analyzer uses intelligent algorithms
+            to reduce electronic waste and encourage sustainable
+            technology habits.
+        </p>
+        <p>
+            By choosing refurbishment over disposal,
+            users can reduce pollution and extend device life cycles.
+        </p>
+        <a href="AI.html" class="btn">
+            Analyze Your Device
+        </a>
+    </div>
+    <div class="ai-box">
+        <div class="circle">
+            87%
+        </div>
+        <h3>
+            Average Sustainability Score
+        </h3>
+        <br>
+        <p>
+            Most devices can still be refurbished instead
+            of being recycled immediately.
+        </p>
+    </div>
+</section>
+<!-- FOOTER -->
+<footer>
+    ©️ 2026 EcoDevice Analyzer | Sustainable Technology Project
+</footer>
+</body>
+</html>

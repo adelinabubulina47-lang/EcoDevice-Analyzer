@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EcoDevice Analyzer - Impact</title>
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+body{
+    background:#071018;
+    color:white;
+    overflow-x:hidden;
+}
+/* NAVBAR */
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:20px 60px;
+
+    position:sticky;
+    top:0;
+    z-index:100;
+
+    background:rgba(0,0,0,0.35);
+
+    backdrop-filter:blur(12px);
+
+    border-bottom:1px solid rgba(255,255,255,0.08);
+}
+.logo{
+    font-size:24px;
+    font-weight:900;
+    color:#22ff66;
+
+    text-shadow:
+    0 0 10px rgba(34,255,102,0.5),
+    0 0 30px rgba(34,255,102,0.2);
+}
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:0;
+}
+
+.nav-links a{
+    color:white;
+
+    margin:0 18px;
+
+    text-decoration:none;
+
+    font-size:15px;
+
+    position:relative;
+
+    transition:0.3s;
+
+    opacity:0.85;
+}
+
+.nav-links a:hover{
+    color:#22ff66;
+    opacity:1;
+}
+
+.nav-links a::after{
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    bottom:-6px;
+
+    width:0%;
+    height:2px;
+
+    background:#22ff66;
+
+    transition:0.3s;
+}
+
+.nav-links a:hover::after{
+    width:100%;
+}
+.btn{
+    background:
+    linear-gradient(
+    90deg,
+    #22ff66,
+    #8cff66
+    );
+
+    padding:15px 30px;
+
+    border-radius:999px;
+
+    color:black;
+
+    text-decoration:none;
+
+    font-weight:800;
+
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+
+    transition:0.4s;
+
+    box-shadow:
+    0 0 25px rgba(34,255,102,0.3);
+
+    position:relative;
+    overflow:hidden;
+}
+
+.btn:hover{
+    transform:
+    translateY(-4px)
+    scale(1.06);
+
+    box-shadow:
+    0 0 45px rgba(34,255,102,0.6);
+}
+
+.btn::before{
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:-100%;
+
+    width:100%;
+    height:100%;
+
+    background:
+    linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.5),
+    transparent
+    );
+
+    transition:0.6s;
+}
+
+.btn:hover::before{
+    left:100%;
+}
+/* HERO */
+.hero{
+    min-height:60vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:80px 20px;
+    background:
+    linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+    url('https://images.unsplash.com/photo-1473773508845-188df298d2d1?q=80&w=1600&auto=format&fit=crop');
+    background-size:cover;
+    background-position:center;
+.hero span,
+.info-text span{
+    background:linear-gradient(
+        90deg,
+        #ffffff,
+        #8cff66,
+        #22ff66
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+}
+
+.hero h1{
+    font-size:70px;
+    margin-bottom:20px;
+    line-height:1.1;
+
+    background:linear-gradient(
+    90deg,
+    #ffffff,
+    #8cff66,
+    #22ff66
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+.hero-content h1{
+    font-size:65px;
+    margin-bottom:20px;
+    line-height:1.1;
+
+    background:linear-gradient(
+    90deg,
+    #ffffff,
+    #8cff66,
+    #22ff66
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+.hero p{
+    max-width:850px;
+    margin:auto;
+    color:#d6d6d6;
+    font-size:20px;
+    line-height:1.7;
+}
+/* STATS */
+.stats{
+    padding:100px 70px;
+}
+.title{
+    text-align:center;
+    margin-bottom:70px;
+}
+.title h2{
+    font-size:50px;
+    margin-bottom:15px;
+}
+.title p{
+    color:#bcbcbc;
+    font-size:18px;
+}
+.stats-container{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+    gap:35px;
+}
+.card{
+    background:#0d1b26;
+    padding:55px 40px;
+    border-radius:25px;
+    text-align:center;
+    border:1px solid rgba(116,255,77,0.2);
+
+    position:relative;
+    overflow:hidden;
+
+    transition:0.35s ease;
+}
+.card::before{
+    content:"";
+
+    position:absolute;
+
+    width:200%;
+    height:200%;
+
+    background:
+    radial-gradient(
+    circle,
+    rgba(34,255,102,0.15),
+    transparent 60%
+    );
+
+    top:-50%;
+    left:-50%;
+
+    transform:rotate(25deg);
+
+    opacity:0;
+
+    transition:0.5s;
+}
+
+.card:hover::before{
+    opacity:1;
+}
+
+.card:hover::before{
+    opacity:1;
+}
+.card:hover{
+    transform:
+    translateY(-12px)
+    scale(1.04);
+
+    box-shadow:
+    0 20px 60px rgba(34,255,102,0.25);
+}
+.card h3{
+    font-size:65px;
+
+    color:#22ff66;
+
+    text-shadow:
+        0 0 20px rgba(34,255,102,0.3),
+        0 0 60px rgba(34,255,102,0.5);
+
+    animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+    0%{
+        text-shadow:
+        0 0 15px rgba(34,255,102,0.2),
+        0 0 30px rgba(34,255,102,0.15);
+    }
+
+    50%{
+        text-shadow:
+        0 0 25px rgba(34,255,102,0.5),
+        0 0 70px rgba(34,255,102,0.4);
+    }
+
+    100%{
+        text-shadow:
+        0 0 15px rgba(34,255,102,0.2),
+        0 0 30px rgba(34,255,102,0.15);
+    }
+}
+    50%{
+        text-shadow:
+        0 0 60px rgba(34,255,102,0.7);
+    }
+
+    100%{
+        text-shadow:
+        0 0 20px rgba(34,255,102,0.2);
+    }
+}
+
+.card p{
+    color:#d0d0d0;
+    line-height:1.6;
+}
+/* INFO SECTION */
+.info-section{
+    padding:100px 70px;
+    display:flex;
+    gap:60px;
+    align-items:center;
+    flex-wrap:wrap;
+}
+.info-text{
+    flex:1;
+    min-width:300px;
+}
+.info-text h2{
+    font-size:50px;
+    margin-bottom:25px;
+    line-height:1.1;
+}.info-text span{
+    background:linear-gradient(
+        90deg,
+        #ffffff,
+        #8cff66,
+        #22ff66
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+.info-text p{
+    color:#d7d7d7;
+    line-height:1.8;
+    margin-bottom:20px;
+    font-size:18px;
+}
+.info-box{
+    flex:1;
+    min-width:300px;
+    background:
+    linear-gradient(
+    145deg,
+    #17322c,
+    #0c1820
+    );
+    padding:60px;
+    border-radius:30px;
+    border:1px solid rgba(116,255,77,0.3);
+}
+.info-box ul{
+    list-style:none;
+}
+.info-box li{
+    margin-bottom:20px;
+    font-size:18px;
+    color:#d9d9d9;
+}
+/* FOOTER */
+footer{
+    text-align:center;
+    padding:20px;
+    background:#75ce6d50;
+    color:white;
+}
+/* RESPONSIVE */
+@media(max-width:900px){
+    .navbar{
+        flex-direction:column;
+        gap:20px;
+        padding:20px;
+        text-align:center;
+    }
+    .nav-links{
+        justify-content:center;
+        gap:20px;
+    }
+    .btn{
+        width:100%;
+        max-width:250px;
+    }
+    .hero{
+        padding:70px 20px;
+    }
+    .hero h1{
+        font-size:45px;
+    }
+    .hero p{
+        font-size:17px;
+    }
+    .stats,
+    .info-section{
+        padding:70px 25px;
+    }
+    .title h2,
+    .info-text h2{
+        font-size:38px;
+    }
+    .title p{
+        font-size:16px;
+    }
+    .card{
+       padding:60px 40px;
+min-height:280px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+    }
+    .card h3{
+      font-size:72px;
+font-weight:900;
+letter-spacing:2px;
+    }
+    .card:hover h3{
+    transform:scale(1.08);
+}
+
+.card h3{
+    transition:0.4s;
+}
+  .card p{
+        font-size:16px;
+    }
+
+    .info-section{
+        flex-direction:column;
+        text-align:center;
+    }
+    .info-box{
+        width:100%;
+        padding:40px 25px;
+    }
+    .info-box li{
+        font-size:16px;
+    }
+    footer{
+        padding:25px;
+        font-size:14px;
+    }
+}
+@media(max-width:500px){
+    .logo{
+        font-size:24px;
+    }
+    .hero h1{
+        font-size:34px;
+    }
+    .hero p{
+        font-size:15px;
+    }
+    .title h2,
+    .info-text h2{
+        font-size:30px;
+    }
+    .nav-links a{
+        font-size:14px;
+    }
+    .card h3{
+        font-size:36px;
+    }
+}
+</style>
+</head>
+<body>
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="logo">
+        EcoDevice Analyzer
+    </div>
+    <div class="nav-links">
+        <a href="Home.html">Home</a>
+        <a href="HowItWorks.html">How It Works</a>
+        <a href="Impact.html">Impact</a>
+        <a href="Contact.html">Contact</a>
+    </div>
+    <a href="AI.html" class="btn">
+        Get Started
+    </a>
+</nav>
+<!-- HERO -->
+<section class="hero">
+    <div>
+        <h1>
+            Our <span>Environmental Impact</span>
+        </h1>
+        <p>
+            EcoDevice Analyzer helps reduce electronic waste by encouraging
+            refurbishment and sustainable technology decisions.
+        </p>
+    </div>
+</section>
+<!-- STATS -->
+<section class="stats">
+    <div class="title">
+        <h2>
+            Making a Difference
+        </h2>
+        <p>
+            Real environmental benefits through smart technology choices
+        </p>
+    </div>
+    <div class="stats-container">
+        <div class="card">
+            <h3>2M+</h3>
+            <p>
+                Electronic devices could be saved from landfills annually.
+            </p>
+        </div>
+        <div class="card">
+            <h3>65%</h3>
+            <p>
+                Reduction in electronic waste through refurbishment programs.
+            </p>
+        </div>
+        <div class="card">
+            <h3>40%</h3>
+            <p>
+                Lower carbon emissions when devices are reused instead of replaced.
+            </p>
+        </div>
+        <div class="card">
+            <h3>87%</h3>
+            <p>
+                Average sustainability score for reusable smartphones.
+            </p>
+        </div>
+    </div>
+</section>
+<!-- INFO SECTION -->
+<section class="info-section">
+    <div class="info-text">
+        <h2>
+            Why <span>Sustainability</span> Matters
+        </h2>
+        <p>
+            Electronic waste is one of the fastest-growing environmental problems.
+            Millions of phones are discarded every year even though many can still
+            be repaired or refurbished.
+        </p>
+        <p>
+            EcoDevice Analyzer promotes smarter decisions that help protect
+            natural resources and reduce pollution worldwide.
+        </p>
+    </div>
+    <div class="info-box">
+        <ul>
+            <li>✔ Reduce electronic waste</li>
+            <li>✔ Extend device lifespan</li>
+            <li>✔ Lower manufacturing pollution</li>
+            <li>✔ Promote eco-friendly technology habits</li>
+            <li>✔ Encourage sustainable recycling</li>
+        </ul>
+    </div>
+</section>
+<!-- FOOTER -->
+<footer>
+    ©️ 2026 EcoDevice Analyzer - Genius Olympiad Project
+</footer>
+</body>
+</html>
